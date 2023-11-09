@@ -93,3 +93,4 @@ dist
 schema.json
 _gen
 lib
+.DS_Store
