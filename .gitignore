@@ -84,6 +84,8 @@ typings/
 # FuseBox cache
 .fusebox/
 
+.DS_Store
+.node-version
 # DynamoDB Local files
 .dynamodb/
 dist
