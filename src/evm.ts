@@ -58,7 +58,7 @@ async function wrapAndSwapETH(
 	signer: ethers.Signer,
 	overrides?: Overrides,
 ): Promise<TransactionResponse> {
-	const loopsoContract = new ethers.Contract(contractAddress, constants.LOOPSO_CONTRACT_ADDRESS, signer);
+	const loopsoContract = new ethers.Contract(constants.LOOPSO_ABI, constants.LOOPSO_CONTRACT_ADDRESS, signer);
 	return loopsoContract.wrapAndSwapETH(
 		relayerFees, recipient, tokenOut, tokenOutWChainId, criteria,
 		overrides ? { value: amountIn, ...overrides } : { value: amountIn });

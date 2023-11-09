@@ -1,3 +1,4 @@
 export default {
+	LOOPSO_ABI: "8LPjGDbxhW4G2Q8S6FvdvUdfGWssgtqmvsc63bwNFA7E",
 	LOOPSO_CONTRACT_ADDRESS: "8LPjGDbxhW4G2Q8S6FvdvUdfGWssgtqmvsc63bwNFA7E",
 }
