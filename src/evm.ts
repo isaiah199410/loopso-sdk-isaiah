@@ -16,7 +16,11 @@ export async function bridgeTokens(
 	/* 	const isSupported = await loopsoContract.isTokenSupported(tokenAddress, tokenChain)
 		if (isSupported) { */
 	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
+	console.log(tokenContract, 'ERC20 token contract SDK')
+	console.log(loopsoContract, 'Loopso bridge contract SDK')
+
 	const approvalTx = tokenContract.approve(contractAddress, amount)
+	console.log(approvalTx, 'ApprovalTX SDK')
 	if (approvalTx) {
 		return loopsoContract.bridgeTokens(tokenAddress, amount, dstAddress, dstChain);
 
