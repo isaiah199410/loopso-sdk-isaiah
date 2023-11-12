@@ -14,17 +14,17 @@ async function bridgeTokens(
 	dstChain: number
 ): Promise<TransactionResponse> {
 	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI, signerOrProvider);
-	const isSupported = await loopsoContract.isTokenSupported(tokenAddress, tokenChain)
-	if (isSupported) {
-		const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
-		const approvalTx = tokenContract.approve(contractAddress, amount)
-		if (approvalTx) {
-			return loopsoContract.bridgeTokens(tokenAddress, amount, dstAddress, dstChain);
+	/* 	const isSupported = await loopsoContract.isTokenSupported(tokenAddress, tokenChain)
+		if (isSupported) { */
+	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
+	const approvalTx = tokenContract.approve(contractAddress, amount)
+	if (approvalTx) {
+		return loopsoContract.bridgeTokens(tokenAddress, amount, dstAddress, dstChain);
 
-		}
-		else throw new Error("Could not approve contract spending");
-	} else throw new Error("Token you are trying to bridge is not supported yet");
-
+	}
+	else throw new Error("Could not approve contract spending");
+	/* 	} else throw new Error("Token you are trying to bridge is not supported yet");
+	 */
 }
 
 async function bridgeNonFungibleTokens(
@@ -38,16 +38,16 @@ async function bridgeNonFungibleTokens(
 	dstChain: number
 ): Promise<TransactionResponse> {
 	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI);
-	const isSupported = await loopsoContract.isTokenSupported(tokenAddress, tokenChain)
-	if (isSupported) {
-		const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
-		const approvalTx = await tokenContract.approve(contractAddress, tokenId)
-		if (approvalTx) {
-			return loopsoContract.bridgeNonFungibleTokens(tokenAddress, tokenId, tokenURI, dstChain, dstAddress);
-		}
-		else throw new Error("Could not approve contract spending");
-	} else throw new Error("Token you are trying to bridge is not supported yet");
-
+	/* 	const isSupported = await loopsoContract.isTokenSupported(tokenAddress, tokenChain)
+		if (isSupported) { */
+	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
+	const approvalTx = await tokenContract.approve(contractAddress, tokenId)
+	if (approvalTx) {
+		return loopsoContract.bridgeNonFungibleTokens(tokenAddress, tokenId, tokenURI, dstChain, dstAddress);
+	}
+	else throw new Error("Could not approve contract spending");
+	/* 	} else throw new Error("Token you are trying to bridge is not supported yet");
+	 */
 
 
 
