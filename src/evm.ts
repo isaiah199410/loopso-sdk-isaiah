@@ -1,97 +1,86 @@
-import { ethers, Overrides, Signer, BigNumber } from 'ethers';
-
+import { ethers } from 'ethers';
 import { TransactionResponse } from '@ethersproject/abstract-provider';
 import { ERC20_ABI, LOOPSO_ABI } from './constants';
-
-
-
-export type ContractRelayerFees = {
-	swapFee: ethers.BigNumber,
-	redeemFee: ethers.BigNumber,
-	refundFee: ethers.BigNumber,
-}
-
-export type Criteria = {
-	transferDeadline: ethers.BigNumber,
-	swapDeadline: ethers.BigNumber,
-	amountOutMin: ethers.BigNumber,
-	gasDrop: ethers.BigNumber,
-	unwrap: boolean,
-	customPayload: string,
-}
-
-export type Recipient = {
-	auctionAddr: string,
-	referrer: string,
-	destAddr: string,
-	destChainId: number,
-	refundAddr: string,
-};
-
-export async function swapFromEvm() { }
-
-
-async function swap(
-	contractAddress: string,
-	relayerFees: ContractRelayerFees,
-	recipient: Recipient,
-	tokenOut: string,
-	tokenOutWChainId: number,
-	criteria: Criteria,
-	tokenIn: string,
-	amountIn: BigNumber,
-	signer: ethers.Signer,
-	overrides?: Overrides
-): Promise<void> {
-
-}
 
 
 
 async function bridgeTokens(
 	contractAddress: string,
 	signerOrProvider: ethers.Signer | ethers.providers.Provider,
-
-	token: string,
+	tokenAddress: string,
+	tokenChain: number,
 	amount: number,
 	dstAddress: string,
 	dstChain: number
 ): Promise<TransactionResponse> {
 	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI, signerOrProvider);
-	//step1 check if token is supported:
-	//const isSupported = await loopsoContract.isTokenSupported()
-	//step2 check approval for ERC20 on openzeppelin, or set approval
-	const tokenContract = new ethers.Contract(token, ERC20_ABI, signerOrProvider);
-	const approvalTx = tokenContract.approve(contractAddress, amount)
-	if (approvalTx) {
-		return loopsoContract.bridgeTokens(token, amount, dstAddress, dstChain);
+	const isSupported = await loopsoContract.isTokenSupported(tokenAddress, tokenChain)
+	if (isSupported) {
+		const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
+		const approvalTx = tokenContract.approve(contractAddress, amount)
+		if (approvalTx) {
+			return loopsoContract.bridgeTokens(tokenAddress, amount, dstAddress, dstChain);
 
-	}
-	else throw new Error("Could not approve contract spending");
+		}
+		else throw new Error("Could not approve contract spending");
+	} else throw new Error("Token you are trying to bridge is not supported yet");
 
 }
 
 async function bridgeNonFungibleTokens(
 	contractAddress: string,
 	signerOrProvider: ethers.Signer | ethers.providers.Provider,
-	token: string,
+	tokenAddress: string,
 	tokenId: number,
+	tokenChain: number,
 	tokenURI: string,
 	dstAddress: string,
 	dstChain: number
 ): Promise<TransactionResponse> {
 	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI);
+	const isSupported = await loopsoContract.isTokenSupported(tokenAddress, tokenChain)
+	if (isSupported) {
+		const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
+		const approvalTx = await tokenContract.approve(contractAddress, tokenId)
+		if (approvalTx) {
+			return loopsoContract.bridgeNonFungibleTokens(tokenAddress, tokenId, tokenURI, dstChain, dstAddress);
+		}
+		else throw new Error("Could not approve contract spending");
+	} else throw new Error("Token you are trying to bridge is not supported yet");
 
-	//step1 check if token is supported:
-	//const isSupported = await loopsoContract.isTokenSupported()
-	//step2 check approval for ERC20 on openzeppelin, or set approval
-	const tokenContract = new ethers.Contract(token, ERC20_ABI, signerOrProvider);
-	const approvalTx = await tokenContract.approve(contractAddress, tokenId)
-	if (approvalTx) {
-		return loopsoContract.bridgeNonFungibleTokens(token, tokenId, tokenURI, dstChain, dstAddress);
 
-	}
-	else throw new Error("Could not approve contract spending");
+
+
+}
+
+async function bridgeNonFungibleTokensBack(
+	contractAddress: string,
+	signerOrProvider: ethers.Signer | ethers.providers.Provider,
+	tokenId: number,
+	dstAddress: string,
+	attestationId: number) {
+	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI, signerOrProvider);
+	return loopsoContract.bridgeNonFungibleTokensBack(tokenId, dstAddress, attestationId);
+
+}
+
+async function bridgeTokensBack(
+	contractAddress: string,
+	signerOrProvider: ethers.Signer | ethers.providers.Provider,
+	tokenId: number,
+	dstAddress: string,
+	attestationId: number) {
+	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI, signerOrProvider);
+	return loopsoContract.bridgeTokensBack(tokenId, dstAddress, attestationId);
+
+}
+
+
+async function getAllSupportedTokens(
+	contractAddress: string,
+	signerOrProvider: ethers.Signer | ethers.providers.Provider) {
+	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI, signerOrProvider);
+	return loopsoContract.getAllSupportedTokens();
 
 }
 
