@@ -4,7 +4,7 @@ import { ERC20_ABI, LOOPSO_ABI } from './constants';
 
 
 
-async function bridgeTokens(
+export async function bridgeTokens(
 	contractAddress: string,
 	signerOrProvider: ethers.Signer | ethers.providers.Provider,
 	tokenAddress: string,
@@ -27,7 +27,7 @@ async function bridgeTokens(
 	 */
 }
 
-async function bridgeNonFungibleTokens(
+export async function bridgeNonFungibleTokens(
 	contractAddress: string,
 	signerOrProvider: ethers.Signer | ethers.providers.Provider,
 	tokenAddress: string,
@@ -53,7 +53,7 @@ async function bridgeNonFungibleTokens(
 
 }
 
-async function bridgeNonFungibleTokensBack(
+export async function bridgeNonFungibleTokensBack(
 	contractAddress: string,
 	signerOrProvider: ethers.Signer | ethers.providers.Provider,
 	tokenId: number,
@@ -64,7 +64,7 @@ async function bridgeNonFungibleTokensBack(
 
 }
 
-async function bridgeTokensBack(
+export async function bridgeTokensBack(
 	contractAddress: string,
 	signerOrProvider: ethers.Signer | ethers.providers.Provider,
 	tokenId: number,
@@ -76,7 +76,7 @@ async function bridgeTokensBack(
 }
 
 
-async function getAllSupportedTokens(
+export async function getAllSupportedTokens(
 	contractAddress: string,
 	signerOrProvider: ethers.Signer | ethers.providers.Provider) {
 	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI, signerOrProvider);
