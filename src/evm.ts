@@ -19,7 +19,7 @@ export async function bridgeTokens(
 	console.log(tokenContract, 'ERC20 token contract SDK')
 	console.log(loopsoContract, 'Loopso bridge contract SDK')
 
-	const approvalTx = tokenContract.approve(contractAddress, amount)
+	const approvalTx = await tokenContract.approve(contractAddress, amount)
 	console.log(approvalTx, 'ApprovalTX SDK')
 	if (approvalTx) {
 		return loopsoContract.bridgeTokens(tokenAddress, amount, dstAddress, dstChain);
