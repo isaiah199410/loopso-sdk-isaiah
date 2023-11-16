@@ -2,36 +2,32 @@ import { ethers, TransactionResponse } from 'ethers';
 import { ERC20_ABI, LOOPSO_ABI } from './constants';
 
 
-
-export async function bridgeTokens(
-	contractAddress: string,
+async function bridgeTokens(
+	contractAddressSrc: string,
 	signerOrProvider: ethers.Signer | ethers.Provider,
 	tokenAddress: string,
-	tokenChain: number,
 	amount: number,
 	dstAddress: string,
 	dstChain: number
-): Promise<TransactionResponse> {
-	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI, signerOrProvider);
-	/* 	const isSupported = await loopsoContract.isTokenSupported(tokenAddress, tokenChain)
-		if (isSupported) { */
+): Promise<TransactionResponse | null> {
+	const loopsoContractOnSrc = new ethers.Contract(contractAddressSrc, LOOPSO_ABI, signerOrProvider);
 	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
-	console.log(tokenContract, 'ERC20 token contract SDK')
-	console.log(loopsoContract, 'Loopso bridge contract SDK')
-
-	//await contract.getFunction("FUNCTION_NAME").call(null);
-	//const approvalTx = await tokenContract.getFunction("approve").call({ contractAddress, amount })
-	const approvalTx = await tokenContract.approve(contractAddress, amount)
-
-	console.log(approvalTx, 'ApprovalTX SDK')
-	if (approvalTx) {
-		return loopsoContract.bridgeTokens(tokenAddress, amount, dstAddress, dstChain);
-
+	let convertedAmount = amount * (10 ^ 18);
+	try {
+		const approvalTx = await tokenContract.approve(contractAddressSrc, convertedAmount);
+		if (approvalTx) {
+			return loopsoContractOnSrc.bridgeTokens(
+				tokenAddress,
+				convertedAmount,
+				dstChain,
+				dstAddress
+			);
+		} else throw new Error("Could not approve contract spending");
+	} catch (error) {
+		return null;
 	}
-	else throw new Error("Could not approve contract spending");
-	/* 	} else throw new Error("Token you are trying to bridge is not supported yet");
-	 */
 }
+
 
 export async function bridgeNonFungibleTokens(
 	contractAddress: string,
@@ -54,8 +50,6 @@ export async function bridgeNonFungibleTokens(
 	else throw new Error("Could not approve contract spending");
 	/* 	} else throw new Error("Token you are trying to bridge is not supported yet");
 	 */
-
-
 
 }
 
