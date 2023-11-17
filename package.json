@@ -1,7 +1,7 @@
 {
 	"name": "loopso-bridge-sdk",
 	"description": "A SDK to bridge with Loopso",
-	"version": "1.0.6",
+	"version": "1.0.8",
 	"source": "src/main.ts",
 	"main": "dist/index.js",
 	"module": "dist/index.esm.min.js",

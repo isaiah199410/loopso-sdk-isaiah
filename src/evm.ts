@@ -2,7 +2,7 @@ import { ethers, TransactionResponse } from 'ethers';
 import { ERC20_ABI, LOOPSO_ABI } from './constants';
 
 
-async function bridgeTokens(
+export async function bridgeTokens(
 	contractAddressSrc: string,
 	signerOrProvider: ethers.Signer | ethers.Provider,
 	tokenAddress: string,
@@ -12,6 +12,8 @@ async function bridgeTokens(
 ): Promise<TransactionResponse | null> {
 	const loopsoContractOnSrc = new ethers.Contract(contractAddressSrc, LOOPSO_ABI, signerOrProvider);
 	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
+
+
 	let convertedAmount = amount * (10 ^ 18);
 	try {
 		const approvalTx = await tokenContract.approve(contractAddressSrc, convertedAmount);
