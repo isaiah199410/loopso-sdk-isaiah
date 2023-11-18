@@ -2,6 +2,7 @@
 import { ethers } from 'ethers';
 import { ADDRESSES, LOOPSO_ABI } from './constants';
 import { ContractInstance } from './types';
+import { Contract } from 'ethers';
 
 
 export async function checkAllowance(signer: ethers.Signer, tokenContract: ethers.Contract, contractAddressSrc: string, convertedAmount: bigint): Promise<void> {
@@ -21,8 +22,9 @@ export async function checkAllowance(signer: ethers.Signer, tokenContract: ether
 	}
 }
 
-export async function getLoopsoContractFromChainId(chainId: number, signerOrProvider: ethers.Signer | ethers.Provider): Promise<ethers.Contract> | null {
-	let contract: ethers.Contract | null = null;
+
+export async function getLoopsoContractFromChainId(chainId: number, signerOrProvider: ethers.Signer | ethers.Provider): Promise<Contract | null> {
+	let contract: Contract | null = null;
 
 	switch (chainId) {
 		case 4201:
@@ -36,19 +38,14 @@ export async function getLoopsoContractFromChainId(chainId: number, signerOrProv
 			break;
 	}
 
-	if (contract) {
-		return {
-			contract,
-		};
-	}
-
-	return null;
+	return contract;
 }
 
 
 
-export async function getLoopsoContractFromContractAddr(contractAddress: string, signerOrProvider: ethers.Signer | ethers.Provider): Promise<ethers.Contract> | null {
-	let contract: ethers.Contract | null = null;
+export async function getLoopsoContractFromContractAddr(contractAddress: string, signerOrProvider: ethers.Signer | ethers.Provider): Promise<Contract | null> {
+	let contract: Contract | null = null;
+
 	switch (contractAddress) {
 		case ADDRESSES.LOOPSO_LUKSO_CONTRACT_ADDRESS:
 			contract = new ethers.Contract(contractAddress, LOOPSO_ABI, signerOrProvider);
@@ -58,13 +55,30 @@ export async function getLoopsoContractFromContractAddr(contractAddress: string,
 			break;
 		// TODO: add more cases as we deploy on more chains
 		default:
+			// Return null if no matching case
+			break;
+	}
+
+	return contract;
+}
+
+
+export async function getContractAddressFromChainId(chainId: number): Promise<string> | null {
+	let contractAddress: string | null = null;
+	switch (chainId) {
+		case 4201:
+			ADDRESSES.LOOPSO_LUKSO_CONTRACT_ADDRESS
+			break;
+		case 80001:
+			ADDRESSES.LOOPSO_MUMBAI_CONTRACT_ADDRESS
+			break;
+		// TODO: add more cases as we deploy on more chains
+		default:
 			//return null if no matching case
 			break;
 	}
-	if (contract) {
-		return {
-			contract,
-		};
+	if (contractAddress) {
+		return contractAddress
 	}
 	return null;
 }

@@ -21,14 +21,12 @@ Then you will need to get a quote:
 ### Getting Quote:
 
 ```javascript
-const quote = await fetchQuote({
-	amount: 250,
-	fromToken: fromToken.contract,
-	toToken: toToken.contract,
-	fromChain: 'lukso',
-	toChain: 'ethereum',
-	slippage: 3,
-	gasDrop: 0.04, // optional
-	referrer: 'Your ETH mainnet address', // optional
-});
+const _txHash = await bridgeTokens(
+	selectedSourceChainNetwork.loopsoContractAddress,
+	signer,
+	await getContractAddressFromChainId(selectedSourceChainNetwork.chainId),
+	BigInt(amount),
+	wallet.accounts[0].address,
+	selectedDestinationChainNetwork.chainId
+);
 ```
