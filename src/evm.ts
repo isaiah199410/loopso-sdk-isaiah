@@ -1,5 +1,6 @@
 import { ethers, TransactionResponse, Signer } from 'ethers';
 import { ERC20_ABI, LOOPSO_ABI } from './constants';
+import { checkAllowance, getLoopsoContractFromContractAddr } from './utils';
 
 
 export async function bridgeTokens(
@@ -10,30 +11,13 @@ export async function bridgeTokens(
 	dstAddress: string,
 	dstChain: number
 ): Promise<TransactionResponse | null> {
-	const loopsoContractOnSrc = new ethers.Contract(
-		contractAddressSrc,
-		LOOPSO_ABI,
-		signer
-	);
+
+	const loopsoContractOnSrc = await getLoopsoContractFromContractAddr(contractAddressSrc, signer)
 	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
 
 	try {
 		let convertedAmount = amount * BigInt(10 ** 18);
-
-		const currentAllowance = await tokenContract.allowance(
-			await signer.getAddress(),
-			contractAddressSrc
-		);
-
-		if (currentAllowance < convertedAmount) {
-			const approvalTx = await tokenContract.approve(
-				contractAddressSrc,
-				convertedAmount
-			);
-			if (!approvalTx) {
-				throw new Error("Approval transaction failed");
-			}
-		}
+		await checkAllowance(signer, tokenContract, contractAddressSrc, convertedAmount)
 
 		const bridgeTx = loopsoContractOnSrc.bridgeTokens(
 			tokenAddress,
@@ -41,11 +25,9 @@ export async function bridgeTokens(
 			dstChain,
 			dstAddress
 		);
-
 		if (!bridgeTx) {
 			throw new Error("Bridge transaction failed");
 		}
-
 		return bridgeTx;
 	} catch (error) {
 		console.error("Error bridging tokens:", error);

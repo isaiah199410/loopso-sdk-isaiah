@@ -4,8 +4,24 @@ import { ADDRESSES, LOOPSO_ABI } from './constants';
 import { ContractInstance } from './types';
 
 
+export async function checkAllowance(signer: ethers.Signer, tokenContract: ethers.Contract, contractAddressSrc: string, convertedAmount: bigint): Promise<void> {
+	const currentAllowance = await tokenContract.allowance(
+		await signer.getAddress(),
+		contractAddressSrc
+	);
 
-export async function getLoopsoContractFromChainId(chainId: number, signerOrProvider: ethers.Signer | ethers.Provider): Promise<ContractInstance> | null {
+	if (currentAllowance < convertedAmount) {
+		const approvalTx = await tokenContract.approve(
+			contractAddressSrc,
+			convertedAmount
+		);
+		if (!approvalTx) {
+			throw new Error("Approval transaction failed");
+		}
+	}
+}
+
+export async function getLoopsoContractFromChainId(chainId: number, signerOrProvider: ethers.Signer | ethers.Provider): Promise<ethers.Contract> | null {
 	let contract: ethers.Contract | null = null;
 
 	switch (chainId) {
@@ -31,7 +47,7 @@ export async function getLoopsoContractFromChainId(chainId: number, signerOrProv
 
 
 
-export async function getLoopsoContractFromContractAddr(contractAddress: string, signerOrProvider: ethers.Signer | ethers.Provider): Promise<ContractInstance> | null {
+export async function getLoopsoContractFromContractAddr(contractAddress: string, signerOrProvider: ethers.Signer | ethers.Provider): Promise<ethers.Contract> | null {
 	let contract: ethers.Contract | null = null;
 	switch (contractAddress) {
 		case ADDRESSES.LOOPSO_LUKSO_CONTRACT_ADDRESS:
