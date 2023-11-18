@@ -9,8 +9,6 @@ export const ADDRESSES = {
 	LAJOS_NFT_ADDRESS_WRAPPED_LUKSO: "0xf60b63DbA61F14647D9a146113548fB341A87d12"
 }
 
-
-
 export const LOOPSO_ABI = [
 	{
 		"inputs": [],
@@ -999,7 +997,6 @@ export const LOOPSO_ABI = [
 		"type": "function"
 	}
 ]
-
 
 export const ERC20_ABI = [
 	{

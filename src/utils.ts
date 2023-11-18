@@ -5,7 +5,7 @@ import { ContractInstance } from './types';
 import { Contract } from 'ethers';
 
 
-export async function checkAllowance(signer: ethers.Signer, tokenContract: ethers.Contract, contractAddressSrc: string, convertedAmount: bigint): Promise<void> {
+export async function checkTokenAllowance(signer: ethers.Signer, tokenContract: ethers.Contract, contractAddressSrc: string, convertedAmount: bigint): Promise<void> {
 	const currentAllowance = await tokenContract.allowance(
 		await signer.getAddress(),
 		contractAddressSrc
@@ -21,6 +21,24 @@ export async function checkAllowance(signer: ethers.Signer, tokenContract: ether
 		}
 	}
 }
+
+export async function checkNftApproval(signer: ethers.Signer, erc721Contract: ethers.Contract, contractAddressSrc: string, tokenId: number): Promise<string | null> {
+
+	console.log('GOT HRE???')
+	//const hasApproved = await erc721Contract.getApproved(tokenId)
+	//if(hasApproved === await signer.getAddress())
+	//console.log(hasApproved, await signer.getAddress(), 'HAS APPRÖÖÖÖVVVED?')
+	const approvalTx = await erc721Contract.approve(
+		contractAddressSrc,
+		tokenId
+	)
+
+	if (approvalTx) {
+		return approvalTx
+	} else return null
+
+}
+
 
 
 export function getLoopsoContractFromChainId(chainId: number, signerOrProvider: ethers.Signer | ethers.JsonRpcProvider): Contract | null {
