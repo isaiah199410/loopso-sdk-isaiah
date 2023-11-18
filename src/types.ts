@@ -1,4 +1,5 @@
 import { Transaction } from '@solana/web3.js';
+import { ethers } from 'ethers';
 
 export type ChainName = 'solana'
 	| 'ethereum' | 'bsc' | 'polygon' | 'avalanche' | 'arbitrum' | 'aptos';
@@ -27,6 +28,11 @@ export type QuoteParams = {
 	gasDrop?: number,
 	referrer?: string,
 }
+
+export interface ContractInstance {
+	contract: ethers.Contract;
+}
+
 
 export type QuoteError = {
 	message: string,
