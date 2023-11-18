@@ -37,7 +37,7 @@ export async function bridgeTokens(
 
 export async function bridgeNonFungibleTokens(
 	contractAddress: string,
-	signerOrProvider: ethers.Signer | ethers.Provider,
+	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider,
 	tokenAddress: string,
 	tokenId: number,
 	tokenChain: number,
@@ -61,7 +61,7 @@ export async function bridgeNonFungibleTokens(
 
 export async function bridgeNonFungibleTokensBack(
 	contractAddress: string,
-	signerOrProvider: ethers.Signer | ethers.Provider,
+	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider,
 	tokenId: number,
 	dstAddress: string,
 	attestationId: number) {
@@ -72,7 +72,7 @@ export async function bridgeNonFungibleTokensBack(
 
 export async function bridgeTokensBack(
 	contractAddress: string,
-	signerOrProvider: ethers.Signer | ethers.Provider,
+	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider,
 	tokenId: number,
 	dstAddress: string,
 	attestationId: number) {
@@ -84,7 +84,7 @@ export async function bridgeTokensBack(
 
 export async function getAllSupportedTokens(
 	contractAddress: string,
-	signerOrProvider: ethers.Signer | ethers.Provider) {
+	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider) {
 	const loopsoContract = new ethers.Contract(contractAddress, LOOPSO_ABI, signerOrProvider);
 	return loopsoContract.getAllSupportedTokens();
 
