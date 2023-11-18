@@ -23,7 +23,7 @@ export async function checkAllowance(signer: ethers.Signer, tokenContract: ether
 }
 
 
-export async function getLoopsoContractFromChainId(chainId: number, signerOrProvider: ethers.Signer | ethers.Provider): Promise<Contract | null> {
+export function getLoopsoContractFromChainId(chainId: number, signerOrProvider: ethers.Signer | ethers.Provider): Contract | null {
 	let contract: Contract | null = null;
 
 	switch (chainId) {
@@ -43,7 +43,7 @@ export async function getLoopsoContractFromChainId(chainId: number, signerOrProv
 
 
 
-export async function getLoopsoContractFromContractAddr(contractAddress: string, signerOrProvider: ethers.Signer | ethers.Provider): Promise<Contract | null> {
+export function getLoopsoContractFromContractAddr(contractAddress: string, signerOrProvider: ethers.Signer | ethers.Provider): Contract | null {
 	let contract: Contract | null = null;
 
 	switch (contractAddress) {
@@ -63,7 +63,7 @@ export async function getLoopsoContractFromContractAddr(contractAddress: string,
 }
 
 
-export async function getContractAddressFromChainId(chainId: number): Promise<string> | null {
+export function getContractAddressFromChainId(chainId: number): string | null {
 	let contractAddress: string | null = null;
 	switch (chainId) {
 		case 4201:
