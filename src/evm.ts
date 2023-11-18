@@ -1,35 +1,57 @@
-import { ethers, TransactionResponse } from 'ethers';
+import { ethers, TransactionResponse, Signer } from 'ethers';
 import { ERC20_ABI, LOOPSO_ABI } from './constants';
 
 
 export async function bridgeTokens(
 	contractAddressSrc: string,
-	signerOrProvider: ethers.Signer | ethers.Provider,
+	signer: ethers.Signer,
 	tokenAddress: string,
-	amount: number,
+	amount: bigint,
 	dstAddress: string,
 	dstChain: number
 ): Promise<TransactionResponse | null> {
-	const loopsoContractOnSrc = new ethers.Contract(contractAddressSrc, LOOPSO_ABI, signerOrProvider);
-	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signerOrProvider);
+	const loopsoContractOnSrc = new ethers.Contract(
+		contractAddressSrc,
+		LOOPSO_ABI,
+		signer
+	);
+	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
 
-
-	let convertedAmount = amount * (10 ^ 18);
 	try {
-		const approvalTx = await tokenContract.approve(contractAddressSrc, convertedAmount);
-		if (approvalTx) {
-			return loopsoContractOnSrc.bridgeTokens(
-				tokenAddress,
-				convertedAmount,
-				dstChain,
-				dstAddress
+		let convertedAmount = amount * BigInt(10 ** 18);
+
+		const currentAllowance = await tokenContract.allowance(
+			await signer.getAddress(),
+			contractAddressSrc
+		);
+
+		if (currentAllowance < convertedAmount) {
+			const approvalTx = await tokenContract.approve(
+				contractAddressSrc,
+				convertedAmount
 			);
-		} else throw new Error("Could not approve contract spending");
+			if (!approvalTx) {
+				throw new Error("Approval transaction failed");
+			}
+		}
+
+		const bridgeTx = loopsoContractOnSrc.bridgeTokens(
+			tokenAddress,
+			convertedAmount,
+			dstChain,
+			dstAddress
+		);
+
+		if (!bridgeTx) {
+			throw new Error("Bridge transaction failed");
+		}
+
+		return bridgeTx;
 	} catch (error) {
+		console.error("Error bridging tokens:", error);
 		return null;
 	}
 }
-
 
 export async function bridgeNonFungibleTokens(
 	contractAddress: string,
