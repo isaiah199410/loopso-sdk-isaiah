@@ -134,7 +134,7 @@ export async function getAllSupportedTokens(
 	return loopsoContract.getAllSupportedTokens();
 }
 
-export async function getFungibleFee(
+export async function getFee(
 	contractAddressDst: string,
 	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider,
 	isFungible: boolean
