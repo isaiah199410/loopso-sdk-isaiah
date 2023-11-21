@@ -1,6 +1,6 @@
 {
 	"name": "loopso-bridge-sdk",
-	"description": "A SDK to bridge with Loopso",
+	"description": "Loopso Bridge SDK",
 	"version": "1.0.14",
 	"source": "src/main.ts",
 	"main": "dist/index.js",
@@ -39,12 +39,8 @@
 		"release": "npm run prepack && npx np --no-tests"
 	},
 	"devDependencies": {
-		"prettier": "^2.6.2",
 		"tsup": "^6.7.0",
-		"typescript": "^4.9.4"
-	},
-	"prettier": {
-		"singleQuote": true
+		"typescript": "^5.0.4"
 	},
 	"license": "MIT",
 	"publishConfig": {
