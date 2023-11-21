@@ -13,7 +13,7 @@ npm install --save loopso-bridge-sdk
 Import the necessary functions and models:
 
 ```javascript
-import { fetchQuote, bridgeTokens } from 'loopso-bridge-sdk';
+import { bridgeTokens } from 'loopso-bridge-sdk';
 ```
 
 Then you will need to get a quote:
@@ -22,11 +22,11 @@ Then you will need to get a quote:
 
 ```javascript
 const _txHash = await bridgeTokens(
-	selectedSourceChainNetwork.loopsoContractAddress,
+	contractAddressSrc,
 	signer,
-	await getContractAddressFromChainId(selectedSourceChainNetwork.chainId),
-	BigInt(amount),
-	wallet.accounts[0].address,
-	selectedDestinationChainNetwork.chainId
+	srcChainId,
+	amount,
+	dstAddress,
+	dstChain
 );
 ```

@@ -95,4 +95,3 @@ _gen
 lib
 .DS_Store
 src/ABI
-test.js

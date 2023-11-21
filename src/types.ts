@@ -1,14 +1,6 @@
-import { Transaction } from "@solana/web3.js";
 import { ethers } from "ethers";
 
-export type ChainName =
-	| "solana"
-	| "ethereum"
-	| "bsc"
-	| "polygon"
-	| "avalanche"
-	| "arbitrum"
-	| "aptos";
+export type ChainName = "ethereum" | "polygon" | "lukso";
 
 export type Token = {
 	name: string;
@@ -24,52 +16,9 @@ export type Token = {
 	realOriginContractAddress?: string;
 };
 
-export type QuoteParams = {
-	amount: number;
-	fromToken: string;
-	fromChain: ChainName;
-	toToken: string;
-	toChain: ChainName;
-	slippage: number;
-	gasDrop?: number;
-	referrer?: string;
-};
-
 export interface ContractInstance {
 	contract: ethers.Contract;
 }
-
-export type QuoteError = {
-	message: string;
-	code: number;
-};
-
-export type Quote = {
-	effectiveAmountIn: number;
-	expectedAmountOut: number;
-	priceImpact: number;
-	minAmountOut: number;
-	minReceived: number;
-	gasDrop: number;
-	price: number;
-	route: Array<{
-		fromSymbol: string;
-		toSymbol: string;
-		protocol?: string | null;
-	}>;
-	swapRelayerFee: number;
-	redeemRelayerFee: number;
-	refundRelayerFee: number;
-	eta: number;
-	fromToken: Token;
-	toToken: Token;
-	fromChain: ChainName;
-	toChain: ChainName;
-	mintDecimals: {
-		from: number;
-		to: number;
-	};
-};
 
 export type WrappedTokenInfo = {
 	tokenAddress: string;
@@ -80,7 +29,3 @@ export type WrappedTokenInfo = {
 	name: string;
 	wrappedTokenAddress: string;
 };
-
-export type SolanaTransactionSigner = (
-	trx: Transaction
-) => Promise<Transaction>;
