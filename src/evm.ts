@@ -171,12 +171,12 @@ export async function isTokenSupported(
 }
 
 export async function getWrappedTokenInfo(
-	contractAddress: string,
+	contractAddressOnSrc: string,
 	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider,
 	wrappedTokenAddress: string
 ) {
 	const loopsoContract = new ethers.Contract(
-		contractAddress,
+		contractAddressOnSrc,
 		LOOPSO_ABI,
 		signerOrProvider
 	);

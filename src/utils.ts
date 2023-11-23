@@ -105,14 +105,14 @@ export function getContractAddressFromChainId(chainId: number): string | null {
 	let contractAddress: string | null = null;
 	switch (chainId) {
 		case 4201:
-			ADDRESSES.LOOPSO_LUKSO_CONTRACT_ADDRESS;
+			contractAddress = ADDRESSES.LOOPSO_LUKSO_CONTRACT_ADDRESS;
 			break;
 		case 80001:
-			ADDRESSES.LOOPSO_MUMBAI_CONTRACT_ADDRESS;
+			contractAddress = ADDRESSES.LOOPSO_MUMBAI_CONTRACT_ADDRESS;
 			break;
-		// TODO: add more cases as we deploy on more chains
+		// TODO: add more cases as you deploy on more chains
 		default:
-			//return null if no matching case
+			// return null if no matching case
 			break;
 	}
 	if (contractAddress) {

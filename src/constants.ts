@@ -8,7 +8,7 @@ export const ADDRESSES = {
 	LAJOS_NFT_ADDRESS_MUMBAI: "0xdc1C3734165aB9f0336eb6d10feCFD62c9CF28cc",
 
 	LAJOS_TOKEN_ADDRESS_WRAPPED_LUKSO:
-		"0x4EFCc784eA3E259bdA3c6311D448416959B9bB9C",
+		"0x1Ed4dCBf91A1D1AE5a25fE9e88640DE12d578345",
 	LAJOS_NFT_ADDRESS_WRAPPED_LUKSO: "0xf60b63DbA61F14647D9a146113548fB341A87d12",
 };
 
@@ -1594,4 +1594,9 @@ export const ERC721_ABI = [
 		stateMutability: "view",
 		type: "function",
 	},
+];
+
+export const FEE_ABI = [
+	"function FEE_NON_FUNGIBLE() external view returns (uint256 memory)",
+	"function FEE_FUNGIBLE() external view returns (uint256 memory)",
 ];
