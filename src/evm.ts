@@ -3,6 +3,8 @@ import { ERC20_ABI, ERC721_ABI, LOOPSO_ABI } from "./constants";
 import {
 	checkNftApproval,
 	checkTokenAllowance,
+	getAttestationIDHash,
+	getContractAddressFromChainId,
 	getLoopsoContractFromContractAddr,
 } from "./utils";
 import { WrappedTokenInfo } from "./types";
@@ -15,31 +17,32 @@ export async function bridgeTokens(
 	dstAddress: string,
 	dstChain: number
 ): Promise<TransactionResponse | null> {
-	const loopsoContractOnSrc = await getLoopsoContractFromContractAddr(
-		contractAddressSrc,
-		signer
-	);
+	const loopsoContractOnSrc = await getLoopsoContractFromContractAddr(contractAddressSrc, signer);
 	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
-
+	const contractAddressDst = await getContractAddressFromChainId(dstChain)
+	let convertedAmount = amount * BigInt(10 ** 18);
+	await checkTokenAllowance(signer, tokenContract, contractAddressSrc, convertedAmount);
 	try {
-		let convertedAmount = amount * BigInt(10 ** 18);
-		await checkTokenAllowance(
-			signer,
-			tokenContract,
-			contractAddressSrc,
-			convertedAmount
-		);
-
-		const bridgeTx = loopsoContractOnSrc.bridgeTokens(
-			tokenAddress,
-			convertedAmount,
-			dstChain,
-			dstAddress
-		);
-		if (!bridgeTx) {
-			throw new Error("Bridge transaction failed");
-		}
-		return bridgeTx;
+		if (loopsoContractOnSrc && contractAddressDst) {
+			const isWrappedTokenInfo = await getWrappedTokenInfo(contractAddressSrc, signer, tokenAddress)
+			const attestationId = getAttestationIDHash(isWrappedTokenInfo.tokenAddress, isWrappedTokenInfo.srcChain)
+			if (isWrappedTokenInfo.name) {
+				const bridgeTx = await loopsoContractOnSrc.bridgeTokensBack(convertedAmount, dstAddress, attestationId);
+				if (!bridgeTx) {
+					throw new Error("Bridge transaction failed");
+				} else return bridgeTx
+			} else {
+				const bridgeTx = await loopsoContractOnSrc.bridgeTokens(
+					tokenAddress,
+					convertedAmount,
+					dstChain,
+					dstAddress
+				);
+				if (!bridgeTx) {
+					throw new Error("Bridge transaction failed");
+				} else return bridgeTx
+			}
+		} else return null
 	} catch (error) {
 		console.error("Error bridging tokens:", error);
 		return null;

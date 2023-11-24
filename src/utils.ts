@@ -25,6 +25,12 @@ export async function checkTokenAllowance(
 	}
 }
 
+export function getAttestationIDHash(wrappedTokenAddr: string, dstChainId: number): string {
+	const attestationID = ethers.solidityPackedKeccak256(['address', 'uint256'], [wrappedTokenAddr, dstChainId])
+	return attestationID;
+}
+
+
 export async function checkNftApproval(
 	signer: ethers.Signer,
 	erc721Contract: ethers.Contract,
