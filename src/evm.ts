@@ -175,11 +175,11 @@ export async function getFee(
 
 	if (isFungible) {
 		const bpFee = await loopsoContract.FEE_FUNGIBLE();
-		const decimalFee = bpFee.toNumber() / 10000;
+		const decimalFee = Number(bpFee) / 10000;
 		return decimalFee;
 	} else {
 		const etherFee = await loopsoContract.FEE_NON_FUNGIBLE();
-		return etherFee.toNumber();
+		return Number(etherFee);
 	}
 }
 
