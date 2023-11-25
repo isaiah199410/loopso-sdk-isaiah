@@ -18,7 +18,7 @@ import { bridgeTokens } from 'loopso-bridge-sdk';
 
 Then you will need to get a quote:
 
-### Getting Quote:
+### Bridging:
 
 ```javascript
 const _txHash = await bridgeTokens(
