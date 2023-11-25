@@ -13,15 +13,16 @@ export async function checkTokenAllowance(
 		await signer.getAddress(),
 		contractAddressSrc
 	);
-
 	if (currentAllowance < convertedAmount) {
 		const approvalTx = await tokenContract.approve(
 			contractAddressSrc,
 			convertedAmount
 		);
-		if (!approvalTx) {
-			throw new Error("Approval transaction failed");
-		}
+		if (approvalTx) {
+			const waitedTx = await approvalTx.wait()
+			return waitedTx
+		} else throw new Error("Approval transaction failed");
+
 	}
 }
 
