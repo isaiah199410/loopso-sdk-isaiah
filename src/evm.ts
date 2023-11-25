@@ -102,26 +102,6 @@ export async function bridgeNonFungibleTokens(
 	}
 }
 
-export async function bridgeNonFungibleTokensBack(
-	contractAddress: string,
-	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider,
-	tokenId: number,
-	dstAddress: string,
-	attestationId: number
-) {
-	const loopsoContract = new ethers.Contract(
-		contractAddress,
-		LOOPSO_ABI,
-		signerOrProvider
-	);
-	const tx = await loopsoContract.bridgeNonFungibleTokensBack(
-		tokenId,
-		dstAddress,
-		attestationId
-	);
-	await tx.wait();
-	return tx;
-}
 
 export async function getAllSupportedTokens(
 	contractAddress: string,
@@ -227,7 +207,14 @@ export async function wrapNativeToken(
 	const tx = await wrappedContract.deposit({ value: amount });
 	await tx.wait();
 
-	return tx;
+	if (tx) {
+		const waitedTx = await tx.wait();
+		return waitedTx
+	} else {
+		throw new Error("Wrapping failed");
+	}
+
+
 }
 
 export async function unwrapNativeToken(
@@ -258,7 +245,11 @@ export async function unwrapNativeToken(
 	}
 
 	const tx = await wrappedContract.withdraw(amount);
-	await tx.wait();
+	if (tx) {
+		const waitedTx = await tx.wait();
+		return waitedTx
+	} else {
+		throw new Error("Unwrapping failed");
+	}
 
-	return tx;
 }
