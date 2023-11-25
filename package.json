@@ -1,7 +1,7 @@
 {
 	"name": "loopso-bridge-sdk",
 	"description": "Loopso Bridge SDK",
-	"version": "1.0.25",
+	"version": "1.0.26",
 	"source": "src/main.ts",
 	"main": "dist/index.js",
 	"module": "dist/index.esm.min.js",
