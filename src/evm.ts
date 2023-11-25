@@ -163,23 +163,23 @@ export async function getAllSupportedTokens(
 }
 
 export async function getFee(
-	contractAddressDst: string,
+	contractAddress: string,
 	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider,
 	isFungible: boolean
 ): Promise<number> {
-	const destLoopsoContract = new ethers.Contract(
-		contractAddressDst,
+	const loopsoContract = new ethers.Contract(
+		contractAddress,
 		LOOPSO_ABI,
 		signerOrProvider
 	);
 
 	if (isFungible) {
-		const bpFee: number = await destLoopsoContract.FEE_FUNGIBLE();
-		const decimalFee = bpFee / 10000;
+		const bpFee = await loopsoContract.FEE_FUNGIBLE();
+		const decimalFee = bpFee.toNumber() / 10000;
 		return decimalFee;
 	} else {
-		const etherFee: number = await destLoopsoContract.FEE_NON_FUNGIBLE();
-		return etherFee;
+		const etherFee = await loopsoContract.FEE_NON_FUNGIBLE();
+		return etherFee.toNumber();
 	}
 }
 
