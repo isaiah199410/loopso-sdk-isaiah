@@ -31,21 +31,19 @@ export function getAttestationIDHash(wrappedTokenAddr: string, dstChainId: numbe
 }
 
 
-export async function checkNftApproval(
-	signer: ethers.Signer,
-	erc721Contract: ethers.Contract,
-	contractAddressSrc: string,
-	tokenId: number
-): Promise<string | null> {
-	console.log("GOT HRE???");
+export async function checkNftApproval(signer: ethers.Signer, erc721Contract: ethers.Contract, contractAddressSrc: string, tokenId: number): Promise<string | null> {
 	//const hasApproved = await erc721Contract.getApproved(tokenId)
 	//if(hasApproved === await signer.getAddress())
-	//console.log(hasApproved, await signer.getAddress(), 'HAS APPRÖÖÖÖVVVED?')
-	const approvalTx = await erc721Contract.approve(contractAddressSrc, tokenId);
+	const approvalTx = await erc721Contract.approve(
+		contractAddressSrc,
+		tokenId
+	)
+	await approvalTx.wait()
 
 	if (approvalTx) {
-		return approvalTx;
-	} else return null;
+		return approvalTx
+	} else return null
+
 }
 
 export function getLoopsoContractFromChainId(
@@ -109,6 +107,7 @@ export function getLoopsoContractFromContractAddr(
 
 export function getContractAddressFromChainId(chainId: number): string | null {
 	let contractAddress: string | null = null;
+
 	switch (chainId) {
 		case 4201:
 			contractAddress = ADDRESSES.LOOPSO_LUKSO_CONTRACT_ADDRESS;
@@ -121,8 +120,10 @@ export function getContractAddressFromChainId(chainId: number): string | null {
 			// return null if no matching case
 			break;
 	}
+
 	if (contractAddress) {
 		return contractAddress;
+	} else {
+		return null;
 	}
-	return null;
 }

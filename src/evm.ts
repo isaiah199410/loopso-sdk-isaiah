@@ -81,40 +81,41 @@ export async function bridgeNonFungibleTokens(
 	dstAddress: string,
 	dstChain: number,
 	tokenId: number,
-	tokenUri: string
-): Promise<TransactionResponse | null> {
-	const loopsoContractOnSrc = getLoopsoContractFromContractAddr(
-		contractAddressSrc,
-		signer
-	);
-	const tokenContract = new ethers.Contract(tokenAddress, ERC721_ABI, signer);
+	tokenUri: string,
+): Promise<any | null> {
+
+	const loopsoContractOnSrc = await getLoopsoContractFromContractAddr(contractAddressSrc, signer)
+	const contractAddressDst = await getContractAddressFromChainId(dstChain)
+	const erc721Contract = new ethers.Contract(tokenAddress, ERC721_ABI, signer);
 	try {
-		const approved = await checkNftApproval(
-			signer,
-			tokenContract,
-			contractAddressSrc,
-			tokenId
-		);
-		if (approved) {
-			const bridgeTx = loopsoContractOnSrc?.bridgeNonFungibleTokens(
-				tokenAddress,
-				tokenId,
-				tokenUri,
-				dstChain,
-				dstAddress
-			);
-			if (!bridgeTx) {
-				throw new Error("Bridge transaction failed");
+		const approved = await checkNftApproval(signer, erc721Contract, contractAddressSrc, tokenId)
+
+		if (approved && loopsoContractOnSrc && contractAddressDst) {
+
+			const isWrappedTokenInfo = await getWrappedTokenInfo(contractAddressSrc, signer, tokenAddress)
+			const attestationId = getAttestationIDHash(isWrappedTokenInfo.tokenAddress, isWrappedTokenInfo.srcChain)
+			if (isWrappedTokenInfo.name) {
+				const bridgeTx = await loopsoContractOnSrc.bridgeNonFungibleTokensBack(tokenId, dstAddress, attestationId);
+				await bridgeTx.wait()
+				if (!bridgeTx) {
+					throw new Error("Bridge transaction failed");
+				} else return bridgeTx
+			} else {
+				console.log('SHOULD COME HERE')
+				const bridgeTx = await loopsoContractOnSrc.bridgeNonFungibleTokens(tokenAddress, tokenId, tokenUri, dstChain, dstAddress, { value: 0 });
+				await bridgeTx.wait()
+				console.log(bridgeTx, 'BRIDGE TXXX')
+				if (!bridgeTx) {
+					throw new Error("Bridge transaction failed");
+				} else return bridgeTx
 			}
-			return bridgeTx;
-		} else {
-			throw new Error("Approval failed");
-		}
+		} else throw new Error("Missing fields to perform bridge");
 	} catch (error) {
 		console.error("Error bridging tokens:", error);
 		return null;
 	}
 }
+
 
 export async function bridgeNonFungibleTokensBack(
 	contractAddress: string,
