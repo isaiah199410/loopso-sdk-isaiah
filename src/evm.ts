@@ -1,5 +1,11 @@
 import { ethers, TransactionResponse, Signer } from "ethers";
-import { ERC20_ABI, ERC721_ABI, LOOPSO_ABI } from "./constants";
+import {
+	ERC20_ABI,
+	ERC721_ABI,
+	LOOPSO_ABI,
+	WRAPPED_ABI,
+	ADDRESSES,
+} from "./constants";
 import {
 	checkNftApproval,
 	checkTokenAllowance,
@@ -17,20 +23,39 @@ export async function bridgeTokens(
 	dstAddress: string,
 	dstChain: number
 ): Promise<TransactionResponse | null> {
-	const loopsoContractOnSrc = await getLoopsoContractFromContractAddr(contractAddressSrc, signer);
+	const loopsoContractOnSrc = await getLoopsoContractFromContractAddr(
+		contractAddressSrc,
+		signer
+	);
 	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
-	const contractAddressDst = await getContractAddressFromChainId(dstChain)
+	const contractAddressDst = await getContractAddressFromChainId(dstChain);
 	let convertedAmount = amount * BigInt(10 ** 18);
-	await checkTokenAllowance(signer, tokenContract, contractAddressSrc, convertedAmount);
+	await checkTokenAllowance(
+		signer,
+		tokenContract,
+		contractAddressSrc,
+		convertedAmount
+	);
 	try {
 		if (loopsoContractOnSrc && contractAddressDst) {
-			const isWrappedTokenInfo = await getWrappedTokenInfo(contractAddressSrc, signer, tokenAddress)
-			const attestationId = getAttestationIDHash(isWrappedTokenInfo.tokenAddress, isWrappedTokenInfo.srcChain)
+			const isWrappedTokenInfo = await getWrappedTokenInfo(
+				contractAddressSrc,
+				signer,
+				tokenAddress
+			);
+			const attestationId = getAttestationIDHash(
+				isWrappedTokenInfo.tokenAddress,
+				isWrappedTokenInfo.srcChain
+			);
 			if (isWrappedTokenInfo.name) {
-				const bridgeTx = await loopsoContractOnSrc.bridgeTokensBack(convertedAmount, dstAddress, attestationId);
+				const bridgeTx = await loopsoContractOnSrc.bridgeTokensBack(
+					convertedAmount,
+					dstAddress,
+					attestationId
+				);
 				if (!bridgeTx) {
 					throw new Error("Bridge transaction failed");
-				} else return bridgeTx
+				} else return bridgeTx;
 			} else {
 				const bridgeTx = await loopsoContractOnSrc.bridgeTokens(
 					tokenAddress,
@@ -40,9 +65,9 @@ export async function bridgeTokens(
 				);
 				if (!bridgeTx) {
 					throw new Error("Bridge transaction failed");
-				} else return bridgeTx
+				} else return bridgeTx;
 			}
-		} else return null
+		} else return null;
 	} catch (error) {
 		console.error("Error bridging tokens:", error);
 		return null;
@@ -197,4 +222,70 @@ export async function getWrappedTokenInfo(
 	};
 
 	return wrappedTokenInfo;
+}
+
+export async function wrapNativeToken(
+	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider,
+	chainId: number,
+	amount: bigint
+) {
+	let wrappedContract;
+	amount = amount * BigInt(10 ** 18);
+
+	switch (chainId) {
+		case 80001:
+			wrappedContract = new ethers.Contract(
+				ADDRESSES.WRAPPED_MATIC_ADDRESS_MUMBAI,
+				WRAPPED_ABI,
+				signerOrProvider
+			);
+			break;
+		case 4201:
+			wrappedContract = new ethers.Contract(
+				ADDRESSES.WRAPPED_LYX_ADDRESS_LUKSO,
+				WRAPPED_ABI,
+				signerOrProvider
+			);
+			break;
+		default:
+			return new Error("Invalid ChainId");
+	}
+
+	const tx = await wrappedContract.deposit({ value: amount });
+	await tx.wait();
+
+	return tx;
+}
+
+export async function unwrapNativeToken(
+	signerOrProvider: ethers.Signer | ethers.JsonRpcProvider,
+	chainId: number,
+	amount: bigint
+) {
+	let wrappedContract;
+	amount = amount * BigInt(10 ** 18);
+
+	switch (chainId) {
+		case 80001:
+			wrappedContract = new ethers.Contract(
+				ADDRESSES.WRAPPED_MATIC_ADDRESS_MUMBAI,
+				WRAPPED_ABI,
+				signerOrProvider
+			);
+			break;
+		case 4201:
+			wrappedContract = new ethers.Contract(
+				ADDRESSES.WRAPPED_LYX_ADDRESS_LUKSO,
+				WRAPPED_ABI,
+				signerOrProvider
+			);
+			break;
+		default:
+			return new Error("Invalid ChainId");
+	}
+
+	const tx = await wrappedContract.withdraw(amount);
+	await tx.wait();
+
+	return tx;
 }

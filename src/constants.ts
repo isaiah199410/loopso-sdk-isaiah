@@ -16,1170 +16,1250 @@ export const ADDRESSES = {
 
 export const LOOPSO_ABI = [
 	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		inputs: [],
+		stateMutability: "nonpayable",
+		type: "constructor",
 	},
 	{
-		"inputs": [],
-		"name": "AccessControlBadConfirmation",
-		"type": "error"
+		inputs: [],
+		name: "AccessControlBadConfirmation",
+		type: "error",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
+				internalType: "address",
+				name: "account",
+				type: "address",
 			},
 			{
-				"internalType": "bytes32",
-				"name": "neededRole",
-				"type": "bytes32"
-			}
+				internalType: "bytes32",
+				name: "neededRole",
+				type: "bytes32",
+			},
 		],
-		"name": "AccessControlUnauthorizedAccount",
-		"type": "error"
+		name: "AccessControlUnauthorizedAccount",
+		type: "error",
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+		anonymous: false,
+		inputs: [
 			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
+				indexed: true,
+				internalType: "uint256",
+				name: "amount",
+				type: "uint256",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address",
 			},
-			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "attestationID",
-				"type": "bytes32"
-			}
 		],
-		"name": "NonFungibleTokensBridgedBack",
-		"type": "event"
+		name: "NativeTokensReleased",
+		type: "event",
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+		anonymous: false,
+		inputs: [
 			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
+				indexed: true,
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256",
 			},
 			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "previousAdminRole",
-				"type": "bytes32"
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address",
 			},
 			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "newAdminRole",
-				"type": "bytes32"
-			}
+				indexed: true,
+				internalType: "bytes32",
+				name: "attestationID",
+				type: "bytes32",
+			},
 		],
-		"name": "RoleAdminChanged",
-		"type": "event"
+		name: "NonFungibleTokensBridgedBack",
+		type: "event",
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+		anonymous: false,
+		inputs: [
 			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
+				indexed: true,
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			}
+				indexed: true,
+				internalType: "address",
+				name: "token",
+				type: "address",
+			},
 		],
-		"name": "RoleGranted",
-		"type": "event"
+		name: "NonFungibleTokensReleased",
+		type: "event",
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+		anonymous: false,
+		inputs: [
 			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
+				indexed: true,
+				internalType: "bytes32",
+				name: "role",
+				type: "bytes32",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
+				indexed: true,
+				internalType: "bytes32",
+				name: "previousAdminRole",
+				type: "bytes32",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			}
+				indexed: true,
+				internalType: "bytes32",
+				name: "newAdminRole",
+				type: "bytes32",
+			},
 		],
-		"name": "RoleRevoked",
-		"type": "event"
+		name: "RoleAdminChanged",
+		type: "event",
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+		anonymous: false,
+		inputs: [
 			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "attestationID",
-				"type": "bytes32"
-			}
-		],
-		"name": "TokenAttested",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "transferID",
-				"type": "bytes32"
+				indexed: true,
+				internalType: "bytes32",
+				name: "role",
+				type: "bytes32",
 			},
 			{
-				"indexed": true,
-				"internalType": "enum ILoopso.TokenType",
-				"name": "tokenType",
-				"type": "uint8"
-			}
-		],
-		"name": "TokensBridged",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
+				indexed: true,
+				internalType: "address",
+				name: "account",
+				type: "address",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
+				indexed: true,
+				internalType: "address",
+				name: "sender",
+				type: "address",
+			},
+		],
+		name: "RoleGranted",
+		type: "event",
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "bytes32",
+				name: "role",
+				type: "bytes32",
 			},
 			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "attestationID",
-				"type": "bytes32"
-			}
-		],
-		"name": "TokensBridgedBack",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
+				indexed: true,
+				internalType: "address",
+				name: "account",
+				type: "address",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
+				indexed: true,
+				internalType: "address",
+				name: "sender",
+				type: "address",
+			},
+		],
+		name: "RoleRevoked",
+		type: "event",
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "bytes32",
+				name: "attestationID",
+				type: "bytes32",
+			},
+		],
+		name: "TokenAttested",
+		type: "event",
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "bytes32",
+				name: "transferID",
+				type: "bytes32",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "token",
-				"type": "address"
-			}
+				indexed: true,
+				internalType: "enum ILoopso.TokenType",
+				name: "tokenType",
+				type: "uint8",
+			},
 		],
-		"name": "TokensReleased",
-		"type": "event"
+		name: "TokensBridged",
+		type: "event",
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+		anonymous: false,
+		inputs: [
 			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
+				indexed: true,
+				internalType: "uint256",
+				name: "amount",
+				type: "uint256",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address",
 			},
 			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "attestationID",
-				"type": "bytes32"
-			}
+				indexed: true,
+				internalType: "bytes32",
+				name: "attestationID",
+				type: "bytes32",
+			},
 		],
-		"name": "WrappedNonFungibleTokensReleased",
-		"type": "event"
+		name: "TokensBridgedBack",
+		type: "event",
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+		anonymous: false,
+		inputs: [
 			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
+				indexed: true,
+				internalType: "uint256",
+				name: "amount",
+				type: "uint256",
 			},
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address",
 			},
 			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "attestationID",
-				"type": "bytes32"
-			}
+				indexed: true,
+				internalType: "address",
+				name: "token",
+				type: "address",
+			},
 		],
-		"name": "WrappedTokensReleased",
-		"type": "event"
+		name: "TokensReleased",
+		type: "event",
 	},
 	{
-		"inputs": [],
-		"name": "DEFAULT_ADMIN_ROLE",
-		"outputs": [
+		anonymous: false,
+		inputs: [
 			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
+				indexed: true,
+				internalType: "uint256",
+				name: "tokenId",
+				type: "uint256",
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address",
+			},
+			{
+				indexed: true,
+				internalType: "bytes32",
+				name: "attestationID",
+				type: "bytes32",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		name: "WrappedNonFungibleTokensReleased",
+		type: "event",
 	},
 	{
-		"inputs": [],
-		"name": "FEE_FUNGIBLE",
-		"outputs": [
+		anonymous: false,
+		inputs: [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
+				indexed: true,
+				internalType: "uint256",
+				name: "amount",
+				type: "uint256",
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address",
+			},
+			{
+				indexed: true,
+				internalType: "bytes32",
+				name: "attestationID",
+				type: "bytes32",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		name: "WrappedTokensReleased",
+		type: "event",
 	},
 	{
-		"inputs": [],
-		"name": "FEE_NON_FUNGIBLE",
-		"outputs": [
+		inputs: [],
+		name: "DEFAULT_ADMIN_ROLE",
+		outputs: [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
+				internalType: "bytes32",
+				name: "",
+				type: "bytes32",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [],
-		"name": "RELAYER_ROLE",
-		"outputs": [
+		inputs: [],
+		name: "FEE_FUNGIBLE",
+		outputs: [
 			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
+				internalType: "uint256",
+				name: "",
+				type: "uint256",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [],
+		name: "FEE_NON_FUNGIBLE",
+		outputs: [
 			{
-				"components": [
+				internalType: "uint256",
+				name: "",
+				type: "uint256",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [],
+		name: "RELAYER_ROLE",
+		outputs: [
+			{
+				internalType: "bytes32",
+				name: "",
+				type: "bytes32",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				components: [
 					{
-						"internalType": "address",
-						"name": "tokenAddress",
-						"type": "address"
+						internalType: "address",
+						name: "tokenAddress",
+						type: "address",
 					},
 					{
-						"internalType": "uint256",
-						"name": "tokenChain",
-						"type": "uint256"
+						internalType: "uint256",
+						name: "tokenChain",
+						type: "uint256",
 					},
 					{
-						"internalType": "enum ILoopso.TokenType",
-						"name": "tokenType",
-						"type": "uint8"
+						internalType: "enum ILoopso.TokenType",
+						name: "tokenType",
+						type: "uint8",
 					},
 					{
-						"internalType": "uint8",
-						"name": "decimals",
-						"type": "uint8"
+						internalType: "uint8",
+						name: "decimals",
+						type: "uint8",
 					},
 					{
-						"internalType": "string",
-						"name": "symbol",
-						"type": "string"
+						internalType: "string",
+						name: "symbol",
+						type: "string",
 					},
 					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
+						internalType: "string",
+						name: "name",
+						type: "string",
 					},
 					{
-						"internalType": "address",
-						"name": "wrappedTokenAddress",
-						"type": "address"
-					}
+						internalType: "address",
+						name: "wrappedTokenAddress",
+						type: "address",
+					},
 				],
-				"internalType": "struct ILoopso.TokenAttestation",
-				"name": "attestation",
-				"type": "tuple"
-			}
+				internalType: "struct ILoopso.TokenAttestation",
+				name: "attestation",
+				type: "tuple",
+			},
 		],
-		"name": "attestToken",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "attestToken",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
+				internalType: "uint256",
+				name: "",
+				type: "uint256",
+			},
 		],
-		"name": "attestationIds",
-		"outputs": [
+		name: "attestationIds",
+		outputs: [
 			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
+				internalType: "bytes32",
+				name: "",
+				type: "bytes32",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
+				internalType: "bytes32",
+				name: "",
+				type: "bytes32",
+			},
 		],
-		"name": "attestedTokens",
-		"outputs": [
+		name: "attestedTokens",
+		outputs: [
 			{
-				"internalType": "address",
-				"name": "tokenAddress",
-				"type": "address"
+				internalType: "address",
+				name: "tokenAddress",
+				type: "address",
 			},
 			{
-				"internalType": "uint256",
-				"name": "tokenChain",
-				"type": "uint256"
+				internalType: "uint256",
+				name: "tokenChain",
+				type: "uint256",
 			},
 			{
-				"internalType": "enum ILoopso.TokenType",
-				"name": "tokenType",
-				"type": "uint8"
+				internalType: "enum ILoopso.TokenType",
+				name: "tokenType",
+				type: "uint8",
 			},
 			{
-				"internalType": "uint8",
-				"name": "decimals",
-				"type": "uint8"
+				internalType: "uint8",
+				name: "decimals",
+				type: "uint8",
 			},
 			{
-				"internalType": "string",
-				"name": "symbol",
-				"type": "string"
+				internalType: "string",
+				name: "symbol",
+				type: "string",
 			},
 			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
+				internalType: "string",
+				name: "name",
+				type: "string",
 			},
 			{
-				"internalType": "address",
-				"name": "wrappedTokenAddress",
-				"type": "address"
-			}
+				internalType: "address",
+				name: "wrappedTokenAddress",
+				type: "address",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "_token",
-				"type": "address"
+				internalType: "uint256",
+				name: "_dstChain",
+				type: "uint256",
 			},
 			{
-				"internalType": "uint256",
-				"name": "_tokenID",
-				"type": "uint256"
+				internalType: "address",
+				name: "_dstAddress",
+				type: "address",
 			},
-			{
-				"internalType": "string",
-				"name": "tokenURI",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_dstChain",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "_dstAddress",
-				"type": "address"
-			}
 		],
-		"name": "bridgeNonFungibleTokens",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
+		name: "bridgeNativeTokens",
+		outputs: [],
+		stateMutability: "payable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
+				internalType: "address",
+				name: "_token",
+				type: "address",
 			},
 			{
-				"internalType": "address",
-				"name": "_to",
-				"type": "address"
+				internalType: "uint256",
+				name: "_tokenID",
+				type: "uint256",
 			},
 			{
-				"internalType": "bytes32",
-				"name": "_attestationID",
-				"type": "bytes32"
-			}
+				internalType: "string",
+				name: "tokenURI",
+				type: "string",
+			},
+			{
+				internalType: "uint256",
+				name: "_dstChain",
+				type: "uint256",
+			},
+			{
+				internalType: "address",
+				name: "_dstAddress",
+				type: "address",
+			},
 		],
-		"name": "bridgeNonFungibleTokensBack",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "bridgeNonFungibleTokens",
+		outputs: [],
+		stateMutability: "payable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "_token",
-				"type": "address"
+				internalType: "uint256",
+				name: "_tokenId",
+				type: "uint256",
 			},
 			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
+				internalType: "address",
+				name: "_to",
+				type: "address",
 			},
 			{
-				"internalType": "uint256",
-				"name": "_dstChain",
-				"type": "uint256"
+				internalType: "bytes32",
+				name: "_attestationID",
+				type: "bytes32",
 			},
-			{
-				"internalType": "address",
-				"name": "_dstAddress",
-				"type": "address"
-			}
 		],
-		"name": "bridgeTokens",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "bridgeNonFungibleTokensBack",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
+				internalType: "address",
+				name: "_token",
+				type: "address",
 			},
 			{
-				"internalType": "address",
-				"name": "_to",
-				"type": "address"
+				internalType: "uint256",
+				name: "_amount",
+				type: "uint256",
 			},
 			{
-				"internalType": "bytes32",
-				"name": "_attestationID",
-				"type": "bytes32"
-			}
+				internalType: "uint256",
+				name: "_dstChain",
+				type: "uint256",
+			},
+			{
+				internalType: "address",
+				name: "_dstAddress",
+				type: "address",
+			},
 		],
-		"name": "bridgeTokensBack",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "bridgeTokens",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [],
-		"name": "discountNft",
-		"outputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
+				internalType: "uint256",
+				name: "_amount",
+				type: "uint256",
+			},
+			{
+				internalType: "address",
+				name: "_to",
+				type: "address",
+			},
+			{
+				internalType: "bytes32",
+				name: "_attestationID",
+				type: "bytes32",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		name: "bridgeTokensBack",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [],
-		"name": "feeReceiver",
-		"outputs": [
+		inputs: [],
+		name: "discountNft",
+		outputs: [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
+				internalType: "address",
+				name: "",
+				type: "address",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [],
-		"name": "getAllSupportedTokens",
-		"outputs": [
+		inputs: [],
+		name: "feeReceiver",
+		outputs: [
 			{
-				"components": [
+				internalType: "address",
+				name: "",
+				type: "address",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [],
+		name: "getAllSupportedTokens",
+		outputs: [
+			{
+				components: [
 					{
-						"internalType": "address",
-						"name": "tokenAddress",
-						"type": "address"
+						internalType: "address",
+						name: "tokenAddress",
+						type: "address",
 					},
 					{
-						"internalType": "uint256",
-						"name": "tokenChain",
-						"type": "uint256"
+						internalType: "uint256",
+						name: "tokenChain",
+						type: "uint256",
 					},
 					{
-						"internalType": "enum ILoopso.TokenType",
-						"name": "tokenType",
-						"type": "uint8"
+						internalType: "enum ILoopso.TokenType",
+						name: "tokenType",
+						type: "uint8",
 					},
 					{
-						"internalType": "uint8",
-						"name": "decimals",
-						"type": "uint8"
+						internalType: "uint8",
+						name: "decimals",
+						type: "uint8",
 					},
 					{
-						"internalType": "string",
-						"name": "symbol",
-						"type": "string"
+						internalType: "string",
+						name: "symbol",
+						type: "string",
 					},
 					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
+						internalType: "string",
+						name: "name",
+						type: "string",
 					},
 					{
-						"internalType": "address",
-						"name": "wrappedTokenAddress",
-						"type": "address"
-					}
+						internalType: "address",
+						name: "wrappedTokenAddress",
+						type: "address",
+					},
 				],
-				"internalType": "struct ILoopso.TokenAttestation[]",
-				"name": "",
-				"type": "tuple[]"
-			}
+				internalType: "struct ILoopso.TokenAttestation[]",
+				name: "",
+				type: "tuple[]",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
-			}
+				internalType: "bytes32",
+				name: "role",
+				type: "bytes32",
+			},
 		],
-		"name": "getRoleAdmin",
-		"outputs": [
+		name: "getRoleAdmin",
+		outputs: [
 			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
+				internalType: "bytes32",
+				name: "",
+				type: "bytes32",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [],
-		"name": "getSupportedTokensLength",
-		"outputs": [
+		inputs: [],
+		name: "getSupportedTokensLength",
+		outputs: [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
+				internalType: "uint256",
+				name: "",
+				type: "uint256",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
+				internalType: "bytes32",
+				name: "role",
+				type: "bytes32",
 			},
 			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
+				internalType: "address",
+				name: "account",
+				type: "address",
+			},
 		],
-		"name": "grantRole",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "grantRole",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
+				internalType: "bytes32",
+				name: "role",
+				type: "bytes32",
 			},
 			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
+				internalType: "address",
+				name: "account",
+				type: "address",
+			},
 		],
-		"name": "hasRole",
-		"outputs": [
+		name: "hasRole",
+		outputs: [
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
+				internalType: "bool",
+				name: "",
+				type: "bool",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "_tokenAddress",
-				"type": "address"
+				internalType: "address",
+				name: "_tokenAddress",
+				type: "address",
 			},
 			{
-				"internalType": "uint256",
-				"name": "_tokenChain",
-				"type": "uint256"
-			}
+				internalType: "uint256",
+				name: "_tokenChain",
+				type: "uint256",
+			},
 		],
-		"name": "isTokenSupported",
-		"outputs": [
+		name: "isTokenSupported",
+		outputs: [
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
+				internalType: "bool",
+				name: "",
+				type: "bool",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "_token",
-				"type": "address"
-			}
+				internalType: "address",
+				name: "_token",
+				type: "address",
+			},
 		],
-		"name": "isWrappedToken",
-		"outputs": [
+		name: "isWrappedToken",
+		outputs: [
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
+				internalType: "bool",
+				name: "",
+				type: "bool",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
+				internalType: "address",
+				name: "",
+				type: "address",
 			},
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
+				internalType: "address",
+				name: "",
+				type: "address",
 			},
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
+				internalType: "uint256",
+				name: "",
+				type: "uint256",
 			},
 			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
+				internalType: "bytes",
+				name: "",
+				type: "bytes",
+			},
 		],
-		"name": "onERC721Received",
-		"outputs": [
+		name: "onERC721Received",
+		outputs: [
 			{
-				"internalType": "bytes4",
-				"name": "",
-				"type": "bytes4"
-			}
+				internalType: "bytes4",
+				name: "",
+				type: "bytes4",
+			},
 		],
-		"stateMutability": "pure",
-		"type": "function"
+		stateMutability: "pure",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
+				internalType: "uint256",
+				name: "_amount",
+				type: "uint256",
 			},
 			{
-				"internalType": "address",
-				"name": "_to",
-				"type": "address"
+				internalType: "address",
+				name: "_to",
+				type: "address",
+			},
+		],
+		name: "releaseNativeTokens",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "_tokenId",
+				type: "uint256",
 			},
 			{
-				"internalType": "address",
-				"name": "_token",
-				"type": "address"
-			}
-		],
-		"name": "releaseNonFungibleTokens",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
+				internalType: "address",
+				name: "_to",
+				type: "address",
 			},
 			{
-				"internalType": "address",
-				"name": "_to",
-				"type": "address"
+				internalType: "address",
+				name: "_token",
+				type: "address",
+			},
+		],
+		name: "releaseNonFungibleTokens",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "_amount",
+				type: "uint256",
 			},
 			{
-				"internalType": "address",
-				"name": "_token",
-				"type": "address"
-			}
-		],
-		"name": "releaseTokens",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
+				internalType: "address",
+				name: "_to",
+				type: "address",
 			},
 			{
-				"internalType": "string",
-				"name": "_tokenURI",
-				"type": "string"
+				internalType: "address",
+				name: "_token",
+				type: "address",
+			},
+		],
+		name: "releaseTokens",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "_tokenId",
+				type: "uint256",
 			},
 			{
-				"internalType": "address",
-				"name": "_to",
-				"type": "address"
+				internalType: "string",
+				name: "_tokenURI",
+				type: "string",
 			},
 			{
-				"internalType": "bytes32",
-				"name": "_attestationID",
-				"type": "bytes32"
-			}
-		],
-		"name": "releaseWrappedNonFungibleTokens",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
+				internalType: "address",
+				name: "_to",
+				type: "address",
 			},
 			{
-				"internalType": "address",
-				"name": "_to",
-				"type": "address"
+				internalType: "bytes32",
+				name: "_attestationID",
+				type: "bytes32",
+			},
+		],
+		name: "releaseWrappedNonFungibleTokens",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "_amount",
+				type: "uint256",
 			},
 			{
-				"internalType": "bytes32",
-				"name": "_attestationID",
-				"type": "bytes32"
-			}
-		],
-		"name": "releaseWrappedTokens",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
+				internalType: "address",
+				name: "_to",
+				type: "address",
 			},
 			{
-				"internalType": "address",
-				"name": "callerConfirmation",
-				"type": "address"
-			}
+				internalType: "bytes32",
+				name: "_attestationID",
+				type: "bytes32",
+			},
 		],
-		"name": "renounceRole",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "releaseWrappedTokens",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
+				internalType: "bytes32",
+				name: "role",
+				type: "bytes32",
 			},
 			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
+				internalType: "address",
+				name: "callerConfirmation",
+				type: "address",
+			},
 		],
-		"name": "revokeRole",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "renounceRole",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "_discountNft",
-				"type": "address"
-			}
+				internalType: "bytes32",
+				name: "role",
+				type: "bytes32",
+			},
+			{
+				internalType: "address",
+				name: "account",
+				type: "address",
+			},
 		],
-		"name": "setDiscountNft",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "revokeRole",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "_feeReceiver",
-				"type": "address"
-			}
+				internalType: "address",
+				name: "_discountNft",
+				type: "address",
+			},
 		],
-		"name": "setFeeReceiver",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "setDiscountNft",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "uint256",
-				"name": "_fee",
-				"type": "uint256"
-			}
+				internalType: "address",
+				name: "_feeReceiver",
+				type: "address",
+			},
 		],
-		"name": "setFungibleFee",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "setFeeReceiver",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "uint256",
-				"name": "_fee",
-				"type": "uint256"
-			}
+				internalType: "uint256",
+				name: "_fee",
+				type: "uint256",
+			},
 		],
-		"name": "setNonFungibleFee",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "setFungibleFee",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "contract ITokenFactory",
-				"name": "_tokenFactory",
-				"type": "address"
-			}
+				internalType: "uint256",
+				name: "_fee",
+				type: "uint256",
+			},
 		],
-		"name": "setTokenFactory",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		name: "setNonFungibleFee",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "bytes4",
-				"name": "interfaceId",
-				"type": "bytes4"
-			}
+				internalType: "contract ITokenFactory",
+				name: "_tokenFactory",
+				type: "address",
+			},
 		],
-		"name": "supportsInterface",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		name: "setTokenFactory",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
 	},
 	{
-		"inputs": [],
-		"name": "tokenFactory",
-		"outputs": [
+		inputs: [
 			{
-				"internalType": "contract ITokenFactory",
-				"name": "",
-				"type": "address"
-			}
+				internalType: "bytes4",
+				name: "interfaceId",
+				type: "bytes4",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		name: "supportsInterface",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [],
+		name: "tokenFactory",
+		outputs: [
 			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
+				internalType: "contract ITokenFactory",
+				name: "",
+				type: "address",
+			},
 		],
-		"name": "tokenTransfers",
-		"outputs": [
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [
 			{
-				"components": [
+				internalType: "bytes32",
+				name: "",
+				type: "bytes32",
+			},
+		],
+		name: "tokenTransfers",
+		outputs: [
+			{
+				components: [
 					{
-						"internalType": "uint256",
-						"name": "timestamp",
-						"type": "uint256"
+						internalType: "uint256",
+						name: "timestamp",
+						type: "uint256",
 					},
 					{
-						"internalType": "uint256",
-						"name": "srcChain",
-						"type": "uint256"
+						internalType: "uint256",
+						name: "srcChain",
+						type: "uint256",
 					},
 					{
-						"internalType": "address",
-						"name": "srcAddress",
-						"type": "address"
+						internalType: "address",
+						name: "srcAddress",
+						type: "address",
 					},
 					{
-						"internalType": "uint256",
-						"name": "dstChain",
-						"type": "uint256"
+						internalType: "uint256",
+						name: "dstChain",
+						type: "uint256",
 					},
 					{
-						"internalType": "address",
-						"name": "dstAddress",
-						"type": "address"
+						internalType: "address",
+						name: "dstAddress",
+						type: "address",
 					},
 					{
-						"internalType": "address",
-						"name": "tokenAddress",
-						"type": "address"
-					}
+						internalType: "address",
+						name: "tokenAddress",
+						type: "address",
+					},
 				],
-				"internalType": "struct ILoopso.TokenTransferBase",
-				"name": "tokenTransfer",
-				"type": "tuple"
+				internalType: "struct ILoopso.TokenTransferBase",
+				name: "tokenTransfer",
+				type: "tuple",
 			},
 			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
+				internalType: "uint256",
+				name: "amount",
+				type: "uint256",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
+				internalType: "bytes32",
+				name: "",
+				type: "bytes32",
+			},
 		],
-		"name": "tokenTransfersNonFungible",
-		"outputs": [
+		name: "tokenTransfersNonFungible",
+		outputs: [
 			{
-				"components": [
+				components: [
 					{
-						"internalType": "uint256",
-						"name": "timestamp",
-						"type": "uint256"
+						internalType: "uint256",
+						name: "timestamp",
+						type: "uint256",
 					},
 					{
-						"internalType": "uint256",
-						"name": "srcChain",
-						"type": "uint256"
+						internalType: "uint256",
+						name: "srcChain",
+						type: "uint256",
 					},
 					{
-						"internalType": "address",
-						"name": "srcAddress",
-						"type": "address"
+						internalType: "address",
+						name: "srcAddress",
+						type: "address",
 					},
 					{
-						"internalType": "uint256",
-						"name": "dstChain",
-						"type": "uint256"
+						internalType: "uint256",
+						name: "dstChain",
+						type: "uint256",
 					},
 					{
-						"internalType": "address",
-						"name": "dstAddress",
-						"type": "address"
+						internalType: "address",
+						name: "dstAddress",
+						type: "address",
 					},
 					{
-						"internalType": "address",
-						"name": "tokenAddress",
-						"type": "address"
-					}
+						internalType: "address",
+						name: "tokenAddress",
+						type: "address",
+					},
 				],
-				"internalType": "struct ILoopso.TokenTransferBase",
-				"name": "tokenTransfer",
-				"type": "tuple"
+				internalType: "struct ILoopso.TokenTransferBase",
+				name: "tokenTransfer",
+				type: "tuple",
 			},
 			{
-				"internalType": "uint256",
-				"name": "tokenID",
-				"type": "uint256"
+				internalType: "uint256",
+				name: "tokenID",
+				type: "uint256",
 			},
 			{
-				"internalType": "string",
-				"name": "tokenURI",
-				"type": "string"
-			}
+				internalType: "string",
+				name: "tokenURI",
+				type: "string",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
+		stateMutability: "view",
+		type: "function",
 	},
 	{
-		"inputs": [
+		inputs: [
 			{
-				"internalType": "address",
-				"name": "_wrappedToken",
-				"type": "address"
-			}
+				internalType: "address",
+				name: "_wrappedToken",
+				type: "address",
+			},
 		],
-		"name": "wrappedTokenInfo",
-		"outputs": [
+		name: "wrappedTokenInfo",
+		outputs: [
 			{
-				"components": [
+				components: [
 					{
-						"internalType": "address",
-						"name": "tokenAddress",
-						"type": "address"
+						internalType: "address",
+						name: "tokenAddress",
+						type: "address",
 					},
 					{
-						"internalType": "uint256",
-						"name": "tokenChain",
-						"type": "uint256"
+						internalType: "uint256",
+						name: "tokenChain",
+						type: "uint256",
 					},
 					{
-						"internalType": "enum ILoopso.TokenType",
-						"name": "tokenType",
-						"type": "uint8"
+						internalType: "enum ILoopso.TokenType",
+						name: "tokenType",
+						type: "uint8",
 					},
 					{
-						"internalType": "uint8",
-						"name": "decimals",
-						"type": "uint8"
+						internalType: "uint8",
+						name: "decimals",
+						type: "uint8",
 					},
 					{
-						"internalType": "string",
-						"name": "symbol",
-						"type": "string"
+						internalType: "string",
+						name: "symbol",
+						type: "string",
 					},
 					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
+						internalType: "string",
+						name: "name",
+						type: "string",
 					},
 					{
-						"internalType": "address",
-						"name": "wrappedTokenAddress",
-						"type": "address"
-					}
+						internalType: "address",
+						name: "wrappedTokenAddress",
+						type: "address",
+					},
 				],
-				"internalType": "struct ILoopso.TokenAttestation",
-				"name": "",
-				"type": "tuple"
-			}
+				internalType: "struct ILoopso.TokenAttestation",
+				name: "",
+				type: "tuple",
+			},
 		],
-		"stateMutability": "view",
-		"type": "function"
-	}
+		stateMutability: "view",
+		type: "function",
+	},
 ];
 
 export const ERC20_ABI = [
@@ -1595,6 +1675,314 @@ export const ERC721_ABI = [
 		payable: false,
 		stateMutability: "view",
 		type: "function",
+	},
+];
+
+export const WRAPPED_ABI = [
+	{
+		inputs: [
+			{
+				internalType: "string",
+				name: "_name",
+				type: "string",
+			},
+			{
+				internalType: "string",
+				name: "_symbol",
+				type: "string",
+			},
+			{
+				internalType: "uint8",
+				name: "_decimals",
+				type: "uint8",
+			},
+		],
+		stateMutability: "nonpayable",
+		type: "constructor",
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "src",
+				type: "address",
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "guy",
+				type: "address",
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "wad",
+				type: "uint256",
+			},
+		],
+		name: "Approval",
+		type: "event",
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "dst",
+				type: "address",
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "wad",
+				type: "uint256",
+			},
+		],
+		name: "Deposit",
+		type: "event",
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "src",
+				type: "address",
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "dst",
+				type: "address",
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "wad",
+				type: "uint256",
+			},
+		],
+		name: "Transfer",
+		type: "event",
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "src",
+				type: "address",
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "wad",
+				type: "uint256",
+			},
+		],
+		name: "Withdrawal",
+		type: "event",
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address",
+			},
+			{
+				internalType: "address",
+				name: "",
+				type: "address",
+			},
+		],
+		name: "allowance",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "guy",
+				type: "address",
+			},
+			{
+				internalType: "uint256",
+				name: "wad",
+				type: "uint256",
+			},
+		],
+		name: "approve",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool",
+			},
+		],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address",
+			},
+		],
+		name: "balanceOf",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [],
+		name: "decimals",
+		outputs: [
+			{
+				internalType: "uint8",
+				name: "",
+				type: "uint8",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [],
+		name: "deposit",
+		outputs: [],
+		stateMutability: "payable",
+		type: "function",
+	},
+	{
+		inputs: [],
+		name: "name",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [],
+		name: "symbol",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [],
+		name: "totalSupply",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "dst",
+				type: "address",
+			},
+			{
+				internalType: "uint256",
+				name: "wad",
+				type: "uint256",
+			},
+		],
+		name: "transfer",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool",
+			},
+		],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "src",
+				type: "address",
+			},
+			{
+				internalType: "address",
+				name: "dst",
+				type: "address",
+			},
+			{
+				internalType: "uint256",
+				name: "wad",
+				type: "uint256",
+			},
+		],
+		name: "transferFrom",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool",
+			},
+		],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "wad",
+				type: "uint256",
+			},
+		],
+		name: "withdraw",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		stateMutability: "payable",
+		type: "receive",
 	},
 ];
 
