@@ -32,9 +32,9 @@ export const getLuksoNftMetadata = async (filteredData: any[]): Promise<NftMetad
                 contractAddress: item.address,
                 id: metadataItem.id,
                 metadata: {
-                    description: metadataItem.metadata.description,
-                    image: metadataItem.metadata.image,
-                    name: metadataItem.metadata.name,
+                    description: metadataItem?.metadata?.description,
+                    image: metadataItem?.metadata?.image,
+                    name: metadataItem?.metadata?.name,
                 },
             }));
 
@@ -49,7 +49,7 @@ export const getLuksoNftMetadata = async (filteredData: any[]): Promise<NftMetad
         return flattenedMetadataArray;
     } catch (error) {
         console.error('Error fetching data:', error);
-        throw error; // Re-throw the error to propagate it
+        return null
     }
 };
 
