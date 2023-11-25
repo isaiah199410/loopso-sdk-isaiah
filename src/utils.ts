@@ -38,12 +38,11 @@ export async function checkNftApproval(signer: ethers.Signer, erc721Contract: et
 		contractAddressSrc,
 		tokenId
 	)
-	await approvalTx.wait()
-
 	if (approvalTx) {
-		return approvalTx
-	} else return null
-
+		const waitedTx = await approvalTx.wait()
+		return waitedTx
+	}
+	else return null
 }
 
 export function getLoopsoContractFromChainId(

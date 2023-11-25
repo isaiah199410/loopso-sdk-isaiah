@@ -23,51 +23,32 @@ export async function bridgeTokens(
 	dstAddress: string,
 	dstChain: number
 ): Promise<TransactionResponse | null> {
-	const loopsoContractOnSrc = getLoopsoContractFromContractAddr(
-		contractAddressSrc,
-		signer
-	);
+	const loopsoContractOnSrc = getLoopsoContractFromContractAddr(contractAddressSrc, signer);
 	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
 	const contractAddressDst = getContractAddressFromChainId(dstChain);
 	let convertedAmount = amount * BigInt(10 ** 18);
-	await checkTokenAllowance(
-		signer,
-		tokenContract,
-		contractAddressSrc,
-		convertedAmount
-	);
+	await checkTokenAllowance(signer, tokenContract, contractAddressSrc, convertedAmount);
 	try {
 		if (loopsoContractOnSrc && contractAddressDst) {
-			const isWrappedTokenInfo = await getWrappedTokenInfo(
-				contractAddressSrc,
-				signer,
-				tokenAddress
-			);
-			const attestationId = getAttestationIDHash(
-				isWrappedTokenInfo.tokenAddress,
-				isWrappedTokenInfo.srcChain
-			);
+			const isWrappedTokenInfo = await getWrappedTokenInfo(contractAddressSrc, signer, tokenAddress);
+			const attestationId = getAttestationIDHash(isWrappedTokenInfo.tokenAddress, isWrappedTokenInfo.srcChain);
 			if (isWrappedTokenInfo.name) {
-				const bridgeTx = await loopsoContractOnSrc.bridgeTokensBack(
-					convertedAmount,
-					dstAddress,
-					attestationId
-				);
-				await bridgeTx.wait();
-				if (!bridgeTx) {
+				const bridgeTx = await loopsoContractOnSrc.bridgeTokensBack(convertedAmount, dstAddress, attestationId);
+
+				if (bridgeTx) {
+					const waitedTx = await bridgeTx.wait();
+					return waitedTx
+				} else {
 					throw new Error("Bridge transaction failed");
-				} else return bridgeTx;
+				}
 			} else {
-				const bridgeTx = await loopsoContractOnSrc.bridgeTokens(
-					tokenAddress,
-					convertedAmount,
-					dstChain,
-					dstAddress
-				);
-				await bridgeTx.wait();
-				if (!bridgeTx) {
+				const bridgeTx = await loopsoContractOnSrc.bridgeTokens(tokenAddress, convertedAmount, dstChain, dstAddress);
+				if (bridgeTx) {
+					const waitedTx = await bridgeTx.wait();
+					return waitedTx
+				} else {
 					throw new Error("Bridge transaction failed");
-				} else return bridgeTx;
+				}
 			}
 		} else return null;
 	} catch (error) {
@@ -92,46 +73,27 @@ export async function bridgeNonFungibleTokens(
 	const contractAddressDst = getContractAddressFromChainId(dstChain);
 	const erc721Contract = new ethers.Contract(tokenAddress, ERC721_ABI, signer);
 	try {
-		const approved = await checkNftApproval(
-			signer,
-			erc721Contract,
-			contractAddressSrc,
-			tokenId
-		);
+		const approved = await checkNftApproval(signer, erc721Contract, contractAddressSrc, tokenId);
 
 		if (approved && loopsoContractOnSrc && contractAddressDst) {
-			const isWrappedTokenInfo = await getWrappedTokenInfo(
-				contractAddressSrc,
-				signer,
-				tokenAddress
-			);
-			const attestationId = getAttestationIDHash(
-				isWrappedTokenInfo.tokenAddress,
-				isWrappedTokenInfo.srcChain
-			);
+			const isWrappedTokenInfo = await getWrappedTokenInfo(contractAddressSrc, signer, tokenAddress);
+			const attestationId = getAttestationIDHash(isWrappedTokenInfo.tokenAddress, isWrappedTokenInfo.srcChain);
 			if (isWrappedTokenInfo.name) {
-				const bridgeTx = await loopsoContractOnSrc.bridgeNonFungibleTokensBack(
-					tokenId,
-					dstAddress,
-					attestationId
-				);
-				await bridgeTx.wait();
-				if (!bridgeTx) {
+				const bridgeTx = await loopsoContractOnSrc.bridgeNonFungibleTokensBack(tokenId, dstAddress, attestationId);
+				if (bridgeTx) {
+					const waitedTx = await bridgeTx.wait();
+					return waitedTx
+				} else {
 					throw new Error("Bridge transaction failed");
-				} else return bridgeTx;
+				}
 			} else {
-				const bridgeTx = await loopsoContractOnSrc.bridgeNonFungibleTokens(
-					tokenAddress,
-					tokenId,
-					tokenUri,
-					dstChain,
-					dstAddress,
-					{ value: 0 }
-				);
-				await bridgeTx.wait();
-				if (!bridgeTx) {
+				const bridgeTx = await loopsoContractOnSrc.bridgeNonFungibleTokens(tokenAddress, tokenId, tokenUri, dstChain, dstAddress, { value: 0 });
+				if (bridgeTx) {
+					const waitedTx = await bridgeTx.wait();
+					return waitedTx
+				} else {
 					throw new Error("Bridge transaction failed");
-				} else return bridgeTx;
+				}
 			}
 		} else throw new Error("Missing fields to perform bridge");
 	} catch (error) {
