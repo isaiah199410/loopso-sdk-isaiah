@@ -29,12 +29,12 @@ export async function bridgeTokens(
 	);
 	const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
 	const contractAddressDst = getContractAddressFromChainId(dstChain);
-	let convertedAmount = amount * BigInt(10 ** 18);
+	// let convertedAmount = amount * BigInt(10 ** 18);
 	await checkTokenAllowance(
 		signer,
 		tokenContract,
 		contractAddressSrc,
-		convertedAmount
+		amount
 	);
 	try {
 		if (loopsoContractOnSrc && contractAddressDst) {
@@ -49,7 +49,7 @@ export async function bridgeTokens(
 			);
 			if (isWrappedTokenInfo.name) {
 				const bridgeTx = await loopsoContractOnSrc.bridgeTokensBack(
-					convertedAmount,
+					amount,
 					dstAddress,
 					attestationId
 				);
@@ -63,7 +63,7 @@ export async function bridgeTokens(
 			} else {
 				const bridgeTx = await loopsoContractOnSrc.bridgeTokens(
 					tokenAddress,
-					convertedAmount,
+					amount,
 					dstChain,
 					dstAddress
 				);
