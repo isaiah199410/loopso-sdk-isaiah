@@ -1,19 +1,19 @@
 {
-	"name": "loopso-bridge-sdk",
+	"name": "loopso-sdk-isaiah",
 	"description": "Loopso Bridge SDK",
-	"version": "1.0.32",
+	"version": "0.0.5",
 	"source": "src/main.ts",
 	"main": "dist/index.js",
 	"module": "dist/index.esm.min.js",
 	"unpkg": "dist/index.iife.min.js",
 	"types": "dist/index.d.ts",
-	"homepage": "https://github.com/useloopso",
+	"homepage": "https://github.com/isaiah199410",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/useloopso/loopso-sdk-typescript"
+		"url": "https://github.com/isaiah199410/loopso-sdk-isaiah"
 	},
 	"keywords": [
-		"loopso",
+		"isaiah",
 		"lukso",
 		"bridge",
 		"swap"
@@ -39,6 +39,8 @@
 		"release": "npm run prepack && npx np --no-tests"
 	},
 	"devDependencies": {
+		"shuttle-sidney": "^1.1.2",
+		"tsup": "^6.7.0",
 		"tsup": "^6.7.0",
 		"typescript": "^5.0.4"
 	},
@@ -49,6 +51,7 @@
 	},
 	"author": "https://github.com/johannafransn",
 	"dependencies": {
+		"shuttle-sidney": "^1.1.2",
 		"cross-fetch": "^3.1.5",
 		"ethers": "^6",
 		"js-sha3": "^0.8.0"

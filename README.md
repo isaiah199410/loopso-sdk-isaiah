@@ -5,7 +5,7 @@ A wrapper typescript package that wraps the Loopso smart contracts. Intended to 
 ## Installation:
 
 ```bash
-npm install --save loopso-bridge-sdk
+npm install --save loopso-sdk-isaiah
 ```
 
 ## Usage:
@@ -13,7 +13,7 @@ npm install --save loopso-bridge-sdk
 Import the necessary functions and models:
 
 ```javascript
-import { bridgeTokens } from 'loopso-bridge-sdk';
+import { bridgeTokens } from 'loopso-sdk-isaiah';
 ```
 
 Then you will need to get a quote:
