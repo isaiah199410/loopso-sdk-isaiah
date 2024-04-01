@@ -1,7 +1,7 @@
 {
 	"name": "loopso-sdk-isaiah",
 	"description": "Loopso Bridge SDK",
-	"version": "0.0.5",
+	"version": "0.0.7",
 	"source": "src/main.ts",
 	"main": "dist/index.js",
 	"module": "dist/index.esm.min.js",
@@ -39,6 +39,7 @@
 		"release": "npm run prepack && npx np --no-tests"
 	},
 	"devDependencies": {
+		"avail-api-wendi": "^1.0.0",
 		"shuttle-sidney": "^1.1.2",
 		"tsup": "^6.7.0",
 		"tsup": "^6.7.0",
@@ -51,6 +52,7 @@
 	},
 	"author": "https://github.com/johannafransn",
 	"dependencies": {
+		"avail-api-wendi": "^1.0.0",
 		"shuttle-sidney": "^1.1.2",
 		"cross-fetch": "^3.1.5",
 		"ethers": "^6",
